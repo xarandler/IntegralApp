@@ -1,5 +1,4 @@
 streamlit==1.25.0
 sympy==1.12
-pillow==9.5.0
-pillow
---upgrade pip
+pillow==9.4.0
+--no-binary :all:
