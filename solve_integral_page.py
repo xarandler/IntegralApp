@@ -1,5 +1,5 @@
 import streamlit as st
-from sympy import symbols, integrate, sympify, lambdify
+from sympy import symbols, integrate, sympify, lambdify, pi
 import numpy as np
 import plotly.graph_objects as go
 import re
@@ -10,9 +10,10 @@ def preprocess_function_input(function_input):
     - Replace ^ with **
     - Add * for implicit multiplication (e.g., 2x -> 2*x)
     """
+    function_input = function_input.replace("π", "pi")  # Replace π with pi
     function_input = function_input.replace("^", "**")
-    function_input = re.sub(r'(\d)([a-zA-Zπ])', r'\1*\2', function_input)  # Add * between number and variable
-    function_input = function_input.replace("π", "np.pi")  # Replace π with np.pi
+    function_input = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', function_input)  # Add * between number and variable
+    
     return function_input
 
 def solve_integral_page():
