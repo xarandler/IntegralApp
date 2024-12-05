@@ -26,7 +26,9 @@ def solve_integral_page():
     # Input limits
     st.write("Enter the limits of integration:")
     lower_limit = st.number_input("Lower limit", value=0.0)
+    lower_limit = preprocess_function_input(lower_limit)
     upper_limit = st.number_input("Upper limit", value=1.0)
+    upper_limit = preprocess_function_input(upper_limit)
     
     if st.button("Calculate and Plot"):
         try:
