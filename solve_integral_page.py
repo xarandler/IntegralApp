@@ -2,13 +2,24 @@ import streamlit as st
 from sympy import symbols, integrate, sympify, lambdify
 import numpy as np
 import plotly.graph_objects as go
+import re
+
+def preprocess_function_input(function_input):
+    """
+    Preprocess the input function:
+    - Replace ^ with **
+    - Add * for implicit multiplication (e.g., 2x -> 2*x)
+    """
+    function_input = function_input.replace("^", "**")
+    function_input = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', function_input)  # Add * between number and variable
+    return function_input
 
 def solve_integral_page():
     st.header("Solve an Integral")
     
     # Input function
-    st.write("Enter the function to integrate (e.g., x**2 + 2*x + 1):")
-    function_input = st.text_input("Function", value="x**2")
+    st.write("Enter the function to integrate (e.g., x^2 + 2x + 1):")
+    function_input = st.text_input("Function", value="x^2")
     
     # Input limits
     st.write("Enter the limits of integration:")
@@ -18,7 +29,9 @@ def solve_integral_page():
     if st.button("Calculate and Plot"):
         try:
             x = symbols('x')
-            func = sympify(function_input)
+            # Preprocess function input
+            preprocessed_function = preprocess_function_input(function_input)
+            func = sympify(preprocessed_function)
             
             # Calculate the integral
             area = integrate(func, (x, lower_limit, upper_limit))
