@@ -11,7 +11,7 @@ def preprocess_function_input(function_input):
     - Add * for implicit multiplication (e.g., 2x -> 2*x)
     """
     function_input = function_input.replace("^", "**")
-    function_input = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', function_input)  # Add * between number and variable
+    function_input = re.sub(r'(\d)([a-zA-Zπ])', r'\1*\2', function_input)  # Add * between number and variable
     return function_input
 
 def solve_integral_page():
