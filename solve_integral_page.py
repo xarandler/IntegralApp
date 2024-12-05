@@ -12,6 +12,7 @@ def preprocess_function_input(function_input):
     """
     function_input = function_input.replace("^", "**")
     function_input = re.sub(r'(\d)([a-zA-Zπ])', r'\1*\2', function_input)  # Add * between number and variable
+    function_input = function_input.replace("π", "np.pi")  # Replace π with np.pi
     return function_input
 
 def solve_integral_page():
